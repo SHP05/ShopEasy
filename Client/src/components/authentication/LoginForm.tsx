@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { login } from '../../services/apiAuth';
 import { Link } from 'react-router-dom';
+import InputField from '../ui/InputField';
+import { loginType } from '../../types/typesAuth';
 
 function LoginForm() {
   const Schema = yup.object({
@@ -10,79 +12,66 @@ function LoginForm() {
     password: yup.string().max(8).required(),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, control, resetField } = useForm({
     resolver: yupResolver(Schema),
   });
-  interface login {
-    email: string;
-    password: string;
-  }
-  const onSubmit = (data: login) => {
+
+  const onSubmit = (data: loginType) => {
     login(data);
+    reset();
   };
+
+  const reset = () => {
+    resetField('email');
+    resetField('password');
+  };
+
   return (
-    <div className="flex flex-wrap">
-      <div className="imgContainer w-1/2">
-        <img src="auth1.jpg" alt="LoginImage" className="h-fit" />
-      </div>
-      <form
-        className="flex cardContainer w-1/2 justify-center"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="w-2/3 h-auto rounded-lg my-auto p-10">
-          <h1 className="text-2xl font-bold mb-5 mx-auto text-center">Login</h1>
-          <div className="mb-6 flex flex-col">
-            <label className="text-lg" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="border rounded-lg text-lg p-2 w-full"
-              type="email"
-              // name="email"
-              placeholder="Email..."
-              {...register('email')}
-            />
-            <p className="text-red-600 text-sm">{errors.email?.message}</p>
-          </div>
-          <div className="mb-6 flex flex-col">
-            <label className="text-lg" htmlFor="password">
-              Password
-            </label>
-            <input
-              className="border rounded-lg text-lg p-2 w-full"
-              type="password"
-              // name="password"
-              placeholder="Password..."
-              {...register('password')}
-            />
-            <p className="text-red-600 text-sm">{errors.password?.message}</p>
-          </div>
-          <div className="flex justify-center">
-            <button type="submit">
-              <p className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                Login
-              </p>
-            </button>
-          </div>
-          <div className="flex items-center justify-center my-4">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="mx-2 text-gray-500">OR</span>
-            <div className="flex-grow border-t border-gray-300"></div>
-          </div>
+    <form
+      className="flex cardContainer lg:w-1/2 sm:w-full justify-center"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="w-full md:w-full lg:w-2/3 h-auto rounded-lg my-auto p-5 lg:p-10">
+        <h1 className="text-2xl font-bold mb-5 mx-auto text-center">Login</h1>
+        <InputField
+          control={control}
+          type={'text'}
+          label={'Email'}
+          placeholder={'example@gmail.com'}
+          name={'email'}
+        />
+        <InputField
+          control={control}
+          type={'password'}
+          label={'Password'}
+          placeholder={'******'}
+          name={'password'}
+        />
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+          >
+            Login
+          </button>
+        </div>
+        <div className="flex items-center justify-center my-4">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="mx-2 text-gray-500">OR</span>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
+        <div className="text-center">
           <Link rel="stylesheet" to="/signup">
-            Create new Account
+            Don't have an Account
+            <span className="text-blue-500 font-bold"> Sign Up !</span>
           </Link>
           <br />
-          <Link rel="stylesheet" to="/home">
-            Back to Home Page
+          <Link className="text-blue-500 font-bold" rel="stylesheet" to="/home">
+            Go Back
           </Link>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 

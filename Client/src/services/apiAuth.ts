@@ -1,25 +1,18 @@
 import axios from 'axios';
 const BackendURL = import.meta.env.VITE_API_URL;
+import { registerType, loginType } from '../types/typesAuth';
 
-interface register {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  shopName: string;
-}
-
-interface login {
-  email: string;
-  password: string;
-}
-
-export async function register(data: register) {
+export async function register(data: registerType) {
   try {
+    const { email, lastName, firstName, password, shopName } = data;
     const response = await axios.post(
       `${BackendURL}user/register`,
       {
-        data,
+        firstName,
+        lastName,
+        email,
+        password,
+        shopName,
       },
       {
         withCredentials: true,
@@ -32,7 +25,7 @@ export async function register(data: register) {
   }
 }
 
-export async function login(data: login) {
+export async function login(data: loginType) {
   try {
     const { email, password } = data;
     const response = await axios.post(`${BackendURL}user/login`, {
