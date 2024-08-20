@@ -1,6 +1,5 @@
 import axios from 'axios';
 const BackendURL = import.meta.env.VITE_API_URL;
-import { registerType, loginType } from '../types/typesAuth';
 
 export async function register(data: registerType) {
   try {
@@ -27,6 +26,8 @@ export async function register(data: registerType) {
 
 export async function login(data: loginType) {
   try {
+    console.log(data);
+
     const { email, password } = data;
     const response = await axios.post(`${BackendURL}user/login`, {
       email,

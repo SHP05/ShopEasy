@@ -1,4 +1,4 @@
-export interface registerType {
+declare interface registerType {
   firstName: string;
   lastName: string;
   email: string;
@@ -6,7 +6,7 @@ export interface registerType {
   shopName: string;
 }
 
-export interface loginType {
+declare interface loginType {
   email: string;
   password: string;
 }

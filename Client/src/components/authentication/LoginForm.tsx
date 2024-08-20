@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { login } from '../../services/apiAuth';
+// import { login } from '../../services/apiAuth';
 import { Link } from 'react-router-dom';
 import InputField from '../ui/InputField';
-import { loginType } from '../../types/typesAuth';
+import { useLogin } from './useLogin';
 
 function LoginForm() {
+  const { login, isPending } = useLogin();
+
   const Schema = yup.object({
     email: yup.string().email().required(),
     password: yup.string().max(8).required(),
@@ -18,13 +20,16 @@ function LoginForm() {
 
   const onSubmit = (data: loginType) => {
     login(data);
-    reset();
+    // login(data);
+    console.log(data);
+
+    // reset();
   };
 
-  const reset = () => {
-    resetField('email');
-    resetField('password');
-  };
+  // const reset = () => {
+  //   resetField('email');
+  //   resetField('password');
+  // };
 
   return (
     <form
@@ -51,7 +56,9 @@ function LoginForm() {
           <button
             type="submit"
             className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+            // disabled={isPending}
           >
+            {/* {isPending ? 'Loging...' : 'Login'} */}
             Login
           </button>
         </div>
