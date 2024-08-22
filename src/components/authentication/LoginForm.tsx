@@ -8,7 +8,7 @@ import { useLogin } from './useLogin';
 
 function LoginForm() {
   const { login, isPending } = useLogin();
-
+  window.localStorage.setItem('loggedIn', 'true');
   const Schema = yup.object({
     email: yup.string().email().required(),
     password: yup.string().max(8).required(),
@@ -20,16 +20,8 @@ function LoginForm() {
 
   const onSubmit = (data: loginType) => {
     login(data);
-    // login(data);
     console.log(data);
-
-    // reset();
   };
-
-  // const reset = () => {
-  //   resetField('email');
-  //   resetField('password');
-  // };
 
   return (
     <form

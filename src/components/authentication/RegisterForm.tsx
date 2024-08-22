@@ -3,8 +3,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
 import InputField from '../ui/InputField';
-import { register } from '../../services/apiAuth';
-import { registerType } from '../../types/typesAuth';
+// import { register } from '../../services/apiAuth';
+import useRegister from './useRegister';
 
 function RegisterForm() {
   const schema = yup.object({
@@ -15,22 +15,16 @@ function RegisterForm() {
     shopName: yup.string().required(),
   });
 
-  const { handleSubmit, control, resetField } = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const { register, isPending } = useRegister();
   const onSubmit = (data: registerType) => {
     register(data);
-    reset();
+    // register(data);
   };
 
-  const reset = () => {
-    resetField('email');
-    resetField('password');
-    resetField('firstName');
-    resetField('lastName');
-    resetField('shopName');
-  };
   return (
     <form
       className="flex cardContainer lg:w-1/2 sm:w-full justify-center"
@@ -79,8 +73,9 @@ function RegisterForm() {
           <button
             type="submit"
             className="text-gray-900  hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+            disabled={isPending}
           >
-            Register
+            {!isPending ? 'Register' : 'Processing....'}
           </button>
         </div>
         <div className="flex items-center justify-center my-4">
