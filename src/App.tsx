@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { Toaster } from 'react-hot-toast';
 import ProtectedRoute from './components/ui/ProtectedRoute';
+import AppLayout from './components/ui/AppLayout';
 function App() {
   const isLoggedIn = window.localStorage.getItem('loggedIn');
   return (
@@ -20,7 +21,13 @@ function App() {
         )}
 
         {/* protected Routes */}
-        <Route element={<ProtectedRoute />}>
+        <Route
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="/login" element={<Navigate to="/" />} />
           <Route path="/register" element={<Navigate to="/" />} />
           <Route path="/" element={<Navigate to="/home" />} />
