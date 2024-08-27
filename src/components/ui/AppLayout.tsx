@@ -7,7 +7,7 @@ function AppLayout() {
     <div>
       <Header />
       <Sidebar />
-      <main className="ml-14">
+      <main className="ml-16 pt-20">
         <Outlet />
       </main>
     </div>

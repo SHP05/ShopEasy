@@ -1,5 +1,5 @@
 function Home() {
-  return <div>Welcome To Shop Easy ! lorem10000</div>;
+  return <div>Welcome To Shop Easy !</div>;
 }
 
 export default Home;

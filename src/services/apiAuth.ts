@@ -4,19 +4,13 @@ const BackendURL = import.meta.env.VITE_API_URL;
 export async function register(data: registerType) {
   try {
     const { email, lastName, firstName, password, shopName } = data;
-    const response = await axios.post(
-      `${BackendURL}user/register`,
-      {
-        firstName,
-        lastName,
-        email,
-        password,
-        shopName,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.post(`${BackendURL}user/register`, {
+      firstName,
+      lastName,
+      email,
+      password,
+      shopName,
+    });
     return response;
   } catch (error) {
     console.log("User Can't be Register Please try Again");

@@ -21,7 +21,7 @@ function Sidebar() {
   const [isOpen, setiOOpen] = useState(true);
   return (
     <div
-      className={`bg-slate-900 h-screen p-2 text-gray-100 ${isOpen ? 'w-60' : 'w-14'} duration-500 fixed`}
+      className={`bg-slate-200 h-screen p-2 duration-200 z-0 text-gray-900 ${isOpen ? 'w-60' : 'w-14'} fixed dark:bg-gray-900 dark:text-slate-200 pt-16`}
     >
       <div className="py-3 flex justify-end">
         <HiMenuAlt3
@@ -37,11 +37,11 @@ function Sidebar() {
           <Link
             to={link.Link}
             key={i}
-            className="flex items-center text-sm gap-3.5 font-medium p-2  hover:bg-gray-600 rounded-md"
+            className="flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-900 hover:text-slate-200 dark:hover:bg-gray-600 rounded-md"
           >
             <div>{React.createElement(link.icon, { size: '26' })}</div>
             <h2
-              style={{ transitionDelay: `${i + 3}00ms` }}
+              style={{ transitionDelay: `${i + 5}0ms` }}
               className={`whitespace-pre duration-500 ${!isOpen && 'opacity-0 translate-x-28 overflow-hidden'}`}
             >
               {isOpen && link.name}
