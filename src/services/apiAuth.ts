@@ -33,3 +33,12 @@ export async function login(data: loginType) {
     throw error;
   }
 }
+
+export async function logout() {
+  try {
+    await axios.post(`${BackendURL}user/logout`, { withCredentials: true });
+  } catch (error) {
+    console.log('Not Logout !');
+    throw error;
+  }
+}

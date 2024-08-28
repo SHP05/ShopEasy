@@ -1,23 +1,29 @@
 import useTheme from '../../context/ThemeContext';
+import { MdOutlineDarkMode, MdLightMode } from 'react-icons/md';
+import { useLogOut } from '../authentication/useLogOut';
 
 function Header() {
   const { ThemeMode, darkTheme, lightTheme } = useTheme();
-
+  const { logout } = useLogOut();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange = (e: any) => {
-    const darkModeStatus = e.currentTarget.checked;
-    console.log(darkModeStatus);
-    if (darkModeStatus) {
+  const handleChange = () => {
+    if (ThemeMode == 'light') {
       darkTheme();
+      console.log(ThemeMode);
     } else {
       lightTheme();
+      console.log(ThemeMode);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
   };
   return (
     // <nav className="bg-gray-200 border-gray-200 dark:bg-gray-700">
     <div className="flex flex-wrap items-center justify-between mx-auto p-4 fixed w-full bg-gray-200 border-gray-200 dark:bg-gray-900 z-10">
       <a
-        href="https://flowbite.com/"
+        href="/home"
         className="flex items-center space-x-3 rtl:space-x-reverse"
       >
         {/* <img
@@ -28,15 +34,13 @@ function Header() {
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
           ShopEasy
         </span>
-        <span>
-          <input
-            value=""
-            type="checkbox"
-            onChange={handleChange}
-            checked={ThemeMode === 'dark'}
-          />
-        </span>
       </a>
+      <span onClick={handleChange} className="dark:text-gray-200">
+        {ThemeMode == 'dark' ? <MdLightMode /> : <MdOutlineDarkMode />}
+      </span>
+      <span>
+        <button onClick={handleLogout}>Logout</button>
+      </span>
       <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         <button
           type="button"
