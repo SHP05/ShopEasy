@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ui/ProtectedRoute';
 import AppLayout from './components/ui/AppLayout';
 import { ThemeProvider } from './context/ThemeContext.ts';
 import { useEffect, useState } from 'react';
+import FrontPage from './pages/FrontPage.tsx';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem('loggedIn');
@@ -15,11 +16,9 @@ function App() {
 
   const darkTheme = () => {
     setThemeMode('dark');
-    console.log(ThemeMode);
   };
   const lightTheme = () => {
     setThemeMode('light');
-    console.log(ThemeMode);
   };
 
   useEffect(() => {
@@ -33,8 +32,9 @@ function App() {
           {/* Unauthorized Routes */}
           {!isLoggedIn && (
             <>
-              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/" element={<FrontPage />} />
             </>
           )}
 
