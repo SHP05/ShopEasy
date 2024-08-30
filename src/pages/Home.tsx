@@ -1,5 +1,12 @@
+import Heading from '../components/home/Heading';
+import { Services } from '../components/home/Services';
 function Home() {
-  return <div>Welcome To Shop Easy !</div>;
+  return (
+    <>
+      <Heading ShopName={`My Shop`} />
+      <Services />
+    </>
+  );
 }
 
 export default Home;

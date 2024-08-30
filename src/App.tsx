@@ -35,7 +35,6 @@ function App() {
             <>
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Login />} />
             </>
           )}
 
@@ -49,7 +48,7 @@ function App() {
           >
             <Route path="/login" element={<Navigate to="/" />} />
             <Route path="/register" element={<Navigate to="/" />} />
-            <Route path="/" element={<Navigate to="/home" />} />
+            {/* <Route path="/" element={<Navigate to="/home" />} /> */}
 
             <Route path="/home" element={<Home />} />
             <Route path="/service" element={<Home />} />

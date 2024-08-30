@@ -1,6 +1,7 @@
 import LoginForm from '../components/authentication/LoginForm';
 
 const Login = () => {
+  window.localStorage.setItem('loggedIn', 'true');
   return (
     <>
       <div className="flex flex-col md:flex-row lg:w-full mx-auto">
