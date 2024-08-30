@@ -20,6 +20,7 @@ export function useLogin() {
       navigate('/home');
     },
     onError: (err) => {
+      toast.error('Wrong Credentials Pleas try again');
       console.log('QueryErr: ', err);
     },
   });

@@ -6,8 +6,15 @@ import { GrServices } from 'react-icons/gr';
 import { CgProfile } from 'react-icons/cg';
 import { BsInfoCircle } from 'react-icons/bs';
 import { GrContactInfo } from 'react-icons/gr';
+import { useLogOut } from '../authentication/useLogOut';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function Sidebar() {
+  const [isOpen, setisOpen] = useState(false);
+  const { logout, isPending, isSuccess } = useLogOut();
+  const navigate = useNavigate();
+
   const menus = [
     { name: 'Home', Link: '/', icon: FaHome },
     { name: 'Services', Link: '/', icon: GrServices },
@@ -15,10 +22,17 @@ function Sidebar() {
     { name: 'Profile', Link: '/', icon: CgProfile },
     { name: 'About', Link: '/', icon: BsInfoCircle },
     { name: 'Contact', Link: '/', icon: GrContactInfo },
-    { name: 'Sign Out', Link: '/', icon: FaSignOutAlt },
   ];
 
-  const [isOpen, setiOOpen] = useState(true);
+  const handleLogout = () => {
+    logout();
+    if (isSuccess) {
+      console.log('logout');
+      navigate('/');
+      toast.success('Logout Successfully');
+      window.localStorage.setItem('loggedIn', '');
+    }
+  };
   return (
     <div
       className={`bg-slate-200 h-screen p-2 duration-200 z-0 text-gray-900 ${isOpen ? 'w-60' : 'w-14'} fixed dark:bg-gray-900 dark:text-slate-200 pt-16`}
@@ -27,7 +41,7 @@ function Sidebar() {
         <HiMenuAlt3
           size={26}
           onClick={() => {
-            setiOOpen(!isOpen);
+            setisOpen(!isOpen);
           }}
           className="cursor-pointer"
         />
@@ -48,6 +62,22 @@ function Sidebar() {
             </h2>
           </Link>
         ))}
+        <Link
+          to={''}
+          className="flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-900 hover:text-slate-200 dark:hover:bg-gray-600 rounded-md"
+          onClick={handleLogout}
+          aria-disabled={isPending}
+        >
+          <div>
+            <FaSignOutAlt size={26} />
+          </div>
+          <h2
+            style={{ transitionDelay: `${6 + 5}0ms` }}
+            className={`whitespace-pre duration-500 ${!isOpen && 'opacity-0 translate-x-28 overflow-hidden'}`}
+          >
+            {isOpen && 'Logout'}
+          </h2>
+        </Link>
       </div>
     </div>
   );
