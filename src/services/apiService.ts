@@ -61,11 +61,11 @@ export async function deleteServiceApi(data: deleteServiceType) {
 export async function getServicesApi(data: getServicesType) {
   try {
     const { id } = data;
-    const response = await axios.get(`${BackendURL}${id}`, {
+    const response = await axios.get(`http://localhost:3001/service/${id}`, {
       withCredentials: true,
     });
 
-    return response;
+    return response.data.data;
   } catch (error) {
     console.log("can't get Services pls try Again !");
     throw error;

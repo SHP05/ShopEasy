@@ -19,3 +19,11 @@ declare interface deleteServiceType {
 declare interface getServicesType {
   id: number;
 }
+
+declare interface getServicesDataType {
+  id: number;
+  serviceName: string;
+  unit: string;
+  pricePerUnit: number;
+  CreatedAt: string;
+}

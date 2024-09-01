@@ -50,11 +50,13 @@
 // export default Services;
 import { useState } from 'react';
 import CreateNewServiceModal from '../ui/CreateNewServiceModal';
-// import { getServicesApi } from '../../services/apiService';
+import { useAllServices } from './useAllServices';
 
 export const Services = () => {
   const [isCreateServiceModalVisible, setIsCreateServiceModalVisible] =
     useState(false);
+  const id = 1;
+  const { data } = useAllServices({ id });
 
   const handleOpenModal = () => {
     setIsCreateServiceModalVisible(true);
@@ -81,66 +83,27 @@ export const Services = () => {
           </button>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <div className="rounded-lg shadow-xl bg-slate-300 dark:bg-gray-800 dark:text-gray-200 overflow-hidden hover:scale-105 transition-transform duration-300">
-            <div className="p-6 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium dark:text-gray-100">
-                  Web Design
-                </h3>
-                <p className="text-sm text-muted-foreground dark:text-gray-400">
-                  Per Hour
-                </p>
+          {data?.map((item: getServicesDataType) => (
+            <>
+              <div className="rounded-lg shadow-xl min-w-60 bg-slate-300 dark:bg-gray-800 dark:text-gray-200 overflow-hidden hover:scale-105 transition-transform duration-300">
+                <div className="p-6 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-medium dark:text-gray-100">
+                      {item.serviceName}
+                    </h3>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">
+                      {item.unit}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold dark:text-gray-100">
+                      ${item.pricePerUnit}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold dark:text-gray-100">$99</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg shadow-xl bg-slate-300 dark:bg-gray-800 dark:text-gray-200 overflow-hidden hover:scale-105 transition-transform duration-300">
-            <div className="p-6 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium dark:text-gray-100">
-                  SEO Optimization
-                </h3>
-                <p className="text-sm text-muted-foreground dark:text-gray-400">
-                  Per Project
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold dark:text-gray-100">$499</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg shadow-xl bg-slate-300 dark:bg-gray-800 dark:text-gray-200 overflow-hidden hover:scale-105 transition-transform duration-300">
-            <div className="p-6 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium dark:text-gray-100">
-                  Content Writing
-                </h3>
-                <p className="text-sm text-muted-foreground dark:text-gray-400">
-                  Per Page
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold dark:text-gray-100">$79</p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg shadow-xl bg-slate-300 dark:bg-gray-800 dark:text-gray-200 overflow-hidden hover:scale-105 transition-transform duration-300">
-            <div className="p-6 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium dark:text-gray-100">
-                  Social Media Marketing
-                </h3>
-                <p className="text-sm text-muted-foreground dark:text-gray-400">
-                  Per Month
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold dark:text-gray-100">$199</p>
-              </div>
-            </div>
-          </div>
+            </>
+          ))}
         </div>
       </div>
       <CreateNewServiceModal

@@ -42,12 +42,6 @@ function Header() {
           ShopEasy
         </span>
       </a>
-      <span onClick={handleChange} className="dark:text-gray-200">
-        {ThemeMode == 'dark' ? <MdLightMode /> : <MdOutlineDarkMode />}
-      </span>
-      <span className="dark:text-white">
-        <button onClick={handleLogout}>Logout</button>
-      </span>
       <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         <span
           onClick={handleChange}

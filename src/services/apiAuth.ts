@@ -23,10 +23,16 @@ export async function login(data: loginType) {
     console.log(data);
 
     const { email, password } = data;
-    const response = await axios.post(`${BackendURL}user/login`, {
-      email,
-      password,
-    });
+    const response = await axios.post(
+      `${BackendURL}user/login`,
+      {
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     return response;
   } catch (error) {
     console.log('Invalid credentials pls try Again !');
